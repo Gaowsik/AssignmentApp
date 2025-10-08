@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
 
+    implementation(libs.androidx.datastore.preferences.core)
+    implementation(libs.androidx.datastore.preferences)
+
 
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.retrofit2.retrofit)
