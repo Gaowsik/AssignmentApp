@@ -1,4 +1,4 @@
-package com.example.assignmentapp.data.source.remote
+package com.example.assignmentapp.data.source.remote.network
 
 
 import okhttp3.Interceptor
