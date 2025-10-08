@@ -53,6 +53,10 @@ dependencies {
     implementation(libs.androidx.hilt.common)
     kapt(libs.dagger.hild.android.compiler)
 
+    kapt(libs.persistence.room.compiler)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+
 
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.retrofit2.retrofit)
