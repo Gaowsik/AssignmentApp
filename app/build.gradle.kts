@@ -1,9 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id(libs.plugins.kotlin.kapt.get().pluginId)
     id(libs.plugins.dagger.hilt.android.get().pluginId)
     id(libs.plugins.safeargs.get().pluginId)
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
 }
 
 android {
@@ -28,7 +36,21 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        all {
+            buildConfigField("String", "BASE_API_URL", "\"https://newsapi.org/\"")
+            val newsApiKey = localProperties.getProperty("NEWS_API_KEY", "")
+            buildConfigField("String", "NEWS_API_KEY", "\"$newsApiKey\"")
+        }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
