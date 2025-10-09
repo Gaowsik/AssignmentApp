@@ -22,4 +22,10 @@
     <string name="nav_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_latest_news">Latest News</string>
+    <string name="action_see_all">See All</string>
+    <string name="action_health">Health</string>
+    <string name="action_technology">Technology</string>
+    <string name="action_finance">Finance</string>
+    <string name="action_art">Art</string>
 </resources>

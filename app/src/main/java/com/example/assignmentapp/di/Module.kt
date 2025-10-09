@@ -3,16 +3,22 @@ package com.example.assignmentapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.assignmentapp.BuildConfig
+import com.example.assignmentapp.data.repository.NewsRepositoryImpl
 import com.example.assignmentapp.data.repository.UserRepositoryImpl
 import com.example.assignmentapp.data.source.local.AssignmentAppDatabase
+import com.example.assignmentapp.data.source.local.FavoriteNewsDataSource
+import com.example.assignmentapp.data.source.local.FavoriteNewsDataSourceImpl
 import com.example.assignmentapp.data.source.local.PrefDataStore
 import com.example.assignmentapp.data.source.local.PrefDataStoreImpl
 import com.example.assignmentapp.data.source.local.UserDataSource
 import com.example.assignmentapp.data.source.local.UserDataSourceImpl
 import com.example.assignmentapp.data.source.remote.NewsApi
+import com.example.assignmentapp.data.source.remote.NewsApiDataSource
+import com.example.assignmentapp.data.source.remote.NewsApiDataSourceImpl
 import com.example.assignmentapp.data.source.remote.network.ApiKeyInterceptor
 import com.example.assignmentapp.data.source.remote.network.NetworkConfig.TIMEOUT
 import com.example.assignmentapp.data.source.remote.network.createAppApiClient
+import com.example.assignmentapp.domain.repository.NewsRepository
 import com.example.assignmentapp.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -68,6 +74,14 @@ object RepositoryModule {
             prefDataStore
         )
     }
+
+    @Provides
+    fun provideNewsRepository(
+        newsApiDataSource: NewsApiDataSource,
+        favoriteNewsDataSource: FavoriteNewsDataSource
+    ): NewsRepository {
+        return NewsRepositoryImpl(newsApiDataSource, favoriteNewsDataSource)
+    }
 }
 
 
@@ -89,6 +103,23 @@ object DataSourceModule {
         @ApplicationContext appContext: Context
     ): PrefDataStore {
         return PrefDataStoreImpl(appContext)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewsApiDataSource(
+        newsApi: NewsApi
+    ): NewsApiDataSource {
+        return NewsApiDataSourceImpl(newsApi)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideFavoriteNewsDataSource(
+        assignmentAppDatabase: AssignmentAppDatabase
+    ): FavoriteNewsDataSource {
+        return FavoriteNewsDataSourceImpl(assignmentAppDatabase.favoriteNewsDao())
     }
 
 }
