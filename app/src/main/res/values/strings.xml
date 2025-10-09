@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AssignmentApp</string>
+    <string name="title_alert">Alert!</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_yes">Yes</string>
+    <string name="hint_search">Search</string>
+    <string name="action_no">No</string>
+    <string name="msg_no_internet">Could not connect to the internet.please check your internet connection</string>
 </resources>
