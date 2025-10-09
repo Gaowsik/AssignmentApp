@@ -6,7 +6,8 @@ import com.example.assignmentapp.domain.model.NewsItem
 import jakarta.inject.Inject
 
 class FavoriteNewsDataSourceImpl @Inject constructor(
-    private val dao: FavoriteNewsDao) : FavoriteNewsDataSource,BaseRepo() {
+    private val dao: FavoriteNewsDao
+) : FavoriteNewsDataSource, BaseRepo() {
     override suspend fun addFavorite(newsItem: NewsItem): Resource<Unit> = safeCall {
         dao.insertFavorite(newsItem.toFavoriteNewsEntity())
     }
@@ -23,7 +24,9 @@ class FavoriteNewsDataSourceImpl @Inject constructor(
         dao.getFavoriteByUrl(url) != null
     }
 
-    override suspend fun getFavoriteUrls(urls: List<String>): Resource<Set<String>> = safeCall {
-        dao.getFavoriteUrls(urls).toSet()
+    override suspend fun getAllFavoriteUrls() = safeCall {
+        dao.getAllFavoriteUrls()
     }
+
+
 }

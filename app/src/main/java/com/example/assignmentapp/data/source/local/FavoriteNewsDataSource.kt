@@ -8,5 +8,5 @@ interface FavoriteNewsDataSource {
     suspend fun removeFavorite(newsItem: NewsItem): Resource<Unit>
     suspend fun getAllFavorites(): Resource<List<NewsItem>>
     suspend fun isFavorite(url: String): Resource<Boolean>
-    suspend fun getFavoriteUrls(urls: List<String>): Resource<Set<String>>
+    suspend fun getAllFavoriteUrls(): Resource<List<String>>
 }

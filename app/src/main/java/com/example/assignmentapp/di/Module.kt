@@ -1,5 +1,6 @@
 package com.example.assignmentapp.di
 
+import com.example.assignmentapp.BuildConfig
 import com.example.assignmentapp.data.source.remote.network.ApiKeyInterceptor
 import com.example.assignmentapp.data.source.remote.NewsApi
 import com.example.assignmentapp.data.source.remote.network.NetworkConfig.TIMEOUT

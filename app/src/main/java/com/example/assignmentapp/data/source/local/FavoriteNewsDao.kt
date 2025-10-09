@@ -22,6 +22,6 @@ interface FavoriteNewsDao {
     @Query("SELECT * FROM favorite_news WHERE url = :url LIMIT 1")
     suspend fun getFavoriteByUrl(url: String): FavoriteNewsEntity?
 
-    @Query("SELECT url FROM favorite_news WHERE url IN (:urls)")
-    suspend fun getFavoriteUrls(urls: List<String>): List<String>
+    @Query("SELECT url FROM favorite_news")
+    suspend fun getAllFavoriteUrls(): List<String>
 }

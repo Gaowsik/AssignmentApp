@@ -1,4 +1,4 @@
-package com.example.assignmentapp.data.repository
+package com.example.assignmentapp.domain.repository
 
 import com.example.assignmentapp.data.Resource
 import com.example.assignmentapp.domain.model.User
