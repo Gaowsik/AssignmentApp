@@ -40,6 +40,7 @@ class RegisterActivity : BaseActivity() {
 
     private fun bindUi() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun setUpObservers() {
@@ -118,7 +119,7 @@ class RegisterActivity : BaseActivity() {
 
     private fun showSuccessMsg() {
         showMessageDialogWithOkAction(getString(R.string.msg_success), okAction = {
-            startActivity<LoginActivity> { }
+                startActivity<LoginActivity> { }
         })
     }
 

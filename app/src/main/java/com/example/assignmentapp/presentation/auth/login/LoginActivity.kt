@@ -37,6 +37,7 @@ class LoginActivity : BaseActivity() {
         setUpObservers()
         checkLoginStatus()
         setUpListener()
+
     }
 
     private fun setUpListener() {
@@ -51,6 +52,7 @@ class LoginActivity : BaseActivity() {
 
     private fun bindUi() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun setUpObservers() {
@@ -87,6 +89,9 @@ class LoginActivity : BaseActivity() {
             }
 
             LoginViewModel.ValidateBookingStates.STATE_VALID_FORM -> {
+                startActivity<LoginActivity> {
+                    finish()
+                }
 
             }
         }
