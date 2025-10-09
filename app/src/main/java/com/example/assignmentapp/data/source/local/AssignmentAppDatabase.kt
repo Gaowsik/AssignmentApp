@@ -11,7 +11,7 @@ import com.example.assignmentapp.data.source.local.entity.UserEntity
     exportSchema = false
 )
 
-abstract class WMSDatabase : RoomDatabase() {
+abstract class AssignmentAppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun favoriteNewsDao(): FavoriteNewsDao
 }

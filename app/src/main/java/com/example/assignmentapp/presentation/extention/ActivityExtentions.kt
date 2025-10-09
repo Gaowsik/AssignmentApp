@@ -1,6 +1,8 @@
 package com.example.assignmentapp.presentation.extention
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -62,4 +64,11 @@ fun <T> AppCompatActivity.collectLatestLifeCycleFlow(flow: Flow<T>, collect: sus
             flow.collectLatest(collect)
         }
     }
+}
+
+inline fun <reified T : Activity> Context?.startActivity(func: Intent.() -> Unit) {
+    val intent = Intent(this, T::class.java).apply {
+        func()
+    }
+    this?.startActivity(intent)
 }

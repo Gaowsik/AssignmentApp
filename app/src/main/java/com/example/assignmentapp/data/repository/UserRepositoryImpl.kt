@@ -36,6 +36,9 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout(email: String, password: String) = prefDataStore.clearDataStore()
+    override suspend fun isLoggedIn() =
+        prefDataStore.getBooleanFromPref(AppConstants.PREF_IS_SINGED_IN, false)
+
 
     suspend fun updateIsLoggedInToPref(status: Boolean) {
         prefDataStore.addBooleanToPref(AppConstants.PREF_IS_SINGED_IN, status)

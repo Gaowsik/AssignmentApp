@@ -10,6 +10,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.example.assignmentapp.data.BaseRepo
 import com.example.assignmentapp.data.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 
@@ -28,6 +29,20 @@ class PrefDataStoreImpl @Inject constructor(@ApplicationContext context: Context
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(key)] = value
         }
+    }
+
+    override suspend fun getBooleanFromPref(
+        key: String, defaultValue: Boolean
+    ): Boolean {
+        val preferences = dataStore.data.first()
+        return preferences[booleanPreferencesKey(key)] ?: defaultValue
+    }
+
+    override suspend fun getStringFromPref(
+        key: String, defaultValue: String
+    ): String {
+        val preferences = dataStore.data.first()
+        return preferences[stringPreferencesKey(key)] ?: defaultValue
     }
 
     override suspend fun clearDataStore() = safeCall {

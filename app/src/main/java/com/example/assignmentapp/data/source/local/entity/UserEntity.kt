@@ -15,7 +15,6 @@ data class UserEntity(
 ) {
     fun toUser(): User {
         return User(
-            id = id,
             firstName = firstName,
             lastName = lastName,
             email = email,

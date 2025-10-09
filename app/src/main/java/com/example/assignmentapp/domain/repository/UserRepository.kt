@@ -12,4 +12,6 @@ interface UserRepository {
     suspend fun login(email: String, password: String): Resource<User?>
 
     suspend fun logout(email: String, password: String): Resource<Unit>
+
+    suspend fun isLoggedIn(): Boolean
 }
