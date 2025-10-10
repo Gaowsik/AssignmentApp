@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,7 @@ class AllNewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentAllNewsBinding
     val args: AllNewsFragmentArgs by navArgs()
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,7 +97,8 @@ class AllNewsFragment : BaseFragment() {
         binding.rvAllNews.layoutManager =
             LinearLayoutManager(context)
         val allNewsRecycleAdapter = NewsAdapter { news ->
-            // TODO: ()
+            viewModel.selectNewsItem(news)
+            navigateToNewsDetailFragment()
         }
         binding.rvAllNews.adapter = allNewsRecycleAdapter
     }
@@ -122,6 +124,11 @@ class AllNewsFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun navigateToNewsDetailFragment() {
+        val action = HomeFragmentDirections.actionHomeFragmentToNewsDetailFragment()
+        findNavController().navigate(action)
     }
 
 

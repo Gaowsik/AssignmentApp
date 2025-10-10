@@ -3,6 +3,7 @@ package com.example.assignmentapp.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.assignmentapp.data.APIResource
+import com.example.assignmentapp.data.Resource
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.domain.repository.NewsRepository
 import com.example.assignmentapp.utils.AppConstants.DEFAULT_REQUEST_PAGE_SIZE
@@ -29,8 +30,17 @@ class HomeViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
+    private val _selectedNewsItem = MutableStateFlow<NewsItem?>(null)
+    val selectedNewsItem: StateFlow<NewsItem?> = _selectedNewsItem.asStateFlow()
+
     private val _errorMessage = MutableSharedFlow<String>()
     val errorMessage = _errorMessage.asSharedFlow()
+
+    private val _isFavoriteSuccessful = MutableSharedFlow<Boolean>()
+    val isFavoriteSuccessful = _isFavoriteSuccessful.asSharedFlow()
+
+    private val _isFavoriteRemoved = MutableSharedFlow<Boolean>()
+    val isFavoriteRemoved = _isFavoriteSuccessful.asSharedFlow()
 
 
     private var currentPageFeed = 1
@@ -127,5 +137,32 @@ class HomeViewModel @Inject constructor(
             }
             _isLoading.value = false
         }
+    }
+
+
+    fun selectNewsItem(item: NewsItem) {
+        _selectedNewsItem.value = item
+    }
+
+    fun addFavorite(newsItem: NewsItem) {
+        viewModelScope.launch {
+            when(val result =newsRepository.addFavorite(newsItem)){
+                is Resource.Error -> _errorMessage.emit(result.exception.message.toString())
+                Resource.Loading -> TODO()
+                is Resource.Success<*> -> _isFavoriteSuccessful.emit(true)
+            }
+        }
+
+    }
+
+    fun removeFavorite(newsItem: NewsItem) {
+        viewModelScope.launch {
+            when(val result =newsRepository.removeFavorite(newsItem)){
+                is Resource.Error -> _errorMessage.emit(result.exception.message.toString())
+                Resource.Loading -> TODO()
+                is Resource.Success<*> -> _isFavoriteSuccessful.emit(true)
+            }
+        }
+
     }
 }

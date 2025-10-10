@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +88,8 @@ class HomeFragment : BaseFragment() {
         binding.rvLatestNews.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val latestNewsRecycleAdapter = NewsAdapter { news ->
-            // TODO: ()
+            viewModel.selectNewsItem(news)
+            navigateToNewsDetailFragment()
         }
         binding.rvLatestNews.adapter = latestNewsRecycleAdapter
     }
@@ -96,7 +97,8 @@ class HomeFragment : BaseFragment() {
     private fun setNewsFeedRecycleView() {
         binding.rvNewsFeed.layoutManager = LinearLayoutManager(context)
         val feedNewsRecycleAdapter = NewsAdapter { news ->
-            // TODO: ()
+            viewModel.selectNewsItem(news)
+            navigateToNewsDetailFragment()
         }
         binding.rvNewsFeed.adapter = feedNewsRecycleAdapter
     }
@@ -132,6 +134,11 @@ class HomeFragment : BaseFragment() {
 
     private fun navigateToAllNewsFragment(isSeeAllSelected: Boolean) {
         val action = HomeFragmentDirections.actionHomeFragmentToAllNewsFragment(isSeeAllSelected)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToNewsDetailFragment() {
+        val action = HomeFragmentDirections.actionHomeFragmentToNewsDetailFragment()
         findNavController().navigate(action)
     }
 
