@@ -40,6 +40,7 @@ class HomeFragment : BaseFragment() {
         setUpListener()
         setupChips()
         setupPagination()
+        fetchData()
     }
 
 
@@ -140,6 +141,11 @@ class HomeFragment : BaseFragment() {
     private fun navigateToNewsDetailFragment() {
         val action = HomeFragmentDirections.actionHomeFragmentToNewsDetailFragment()
         findNavController().navigate(action)
+    }
+
+    private fun fetchData(){
+        viewModel.fetchLatestNews(true)
+        viewModel.fetchNewsFeed(true)
     }
 
 

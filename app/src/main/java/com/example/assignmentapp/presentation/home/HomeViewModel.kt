@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
     val isFavoriteSuccessful = _isFavoriteSuccessful.asSharedFlow()
 
     private val _isFavoriteRemoved = MutableSharedFlow<Boolean>()
-    val isFavoriteRemoved = _isFavoriteSuccessful.asSharedFlow()
+    val isFavoriteRemoved = _isFavoriteRemoved.asSharedFlow()
 
 
     private var currentPageFeed = 1
@@ -50,10 +50,6 @@ class HomeViewModel @Inject constructor(
     private val defaultCountry = "us"
 
 
-    init {
-        fetchLatestNews()
-        fetchNewsFeed()
-    }
 
     fun fetchLatestNews(refresh: Boolean = false,topHeadlinesSize: Int = 5) {
         viewModelScope.launch {
@@ -160,7 +156,7 @@ class HomeViewModel @Inject constructor(
             when(val result =newsRepository.removeFavorite(newsItem)){
                 is Resource.Error -> _errorMessage.emit(result.exception.message.toString())
                 Resource.Loading -> TODO()
-                is Resource.Success<*> -> _isFavoriteSuccessful.emit(true)
+                is Resource.Success<*> -> _isFavoriteRemoved.emit(true)
             }
         }
 

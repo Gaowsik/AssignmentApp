@@ -43,7 +43,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/favorite"
                 android:src="@drawable/ic_favourite"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                app:tint="@android:color/white" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -32,5 +32,9 @@
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="com.example.assignmentapp.presentation.newsDetail.NewsDetailFragment"
-        android:label="NewsDetailFragment" />
+        android:label="NewsDetailFragment" >
+        <action
+            android:id="@+id/action_newsDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
