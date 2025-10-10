@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="com.example.assignmentapp.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_allNewsFragment"
+            app:destination="@id/allNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allNewsFragment"
+        android:name="com.example.assignmentapp.presentation.home.AllNewsFragment"
+        android:label="fragment_all_news"
+        tools:layout="@layout/fragment_all_news" >
+        <argument
+            android:name="isSeeAllSelected"
+            app:argType="boolean" />
+    </fragment>
 </navigation>

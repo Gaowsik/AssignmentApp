@@ -7,13 +7,20 @@
     android:padding="@dimen/padding_xsmall"
     tools:context=".presentation.home.AllNewsFragment">
 
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/search_bar"
+    <EditText
+        android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_pico"
+        android:background="@drawable/bg_solid_transperant_grey_rounded_border"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/padding_xsmall"
+        android:ems="10"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:hint="@string/hint_search"
-        app:defaultMarginsEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/rvAllNews"
+        android:inputType="text"
+        android:padding="@dimen/padding_xsmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,5 +32,5 @@
         android:layout_marginTop="@dimen/padding_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/editSearch" />
 </androidx.constraintlayout.widget.ConstraintLayout>

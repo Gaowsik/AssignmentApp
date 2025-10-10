@@ -35,7 +35,6 @@ class HomeViewModel @Inject constructor(
     private var currentPageFeed = 1
     private var currentPageLatest = 1
     private val pageSize = 10
-    private val topHeadlinesSize = 5
     private var selectedCategory: String? = null
     private val defaultCountry = "us"
 
@@ -45,7 +44,7 @@ class HomeViewModel @Inject constructor(
         fetchNewsFeed()
     }
 
-    fun fetchLatestNews(refresh: Boolean = false) {
+    fun fetchLatestNews(refresh: Boolean = false,topHeadlinesSize: Int = 5) {
         viewModelScope.launch {
             if (refresh) {
                 currentPageLatest = 1
@@ -110,6 +109,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadMoreFeed() = fetchNewsFeed()
+    fun loadMoreLatestNews() = fetchLatestNews(topHeadlinesSize = 10)
 
     fun setCategory(category: String?) {
         selectedCategory = category

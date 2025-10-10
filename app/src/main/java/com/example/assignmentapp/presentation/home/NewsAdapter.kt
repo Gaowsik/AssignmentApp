@@ -13,7 +13,7 @@ class NewsAdapter(
     var onItemClicked: (NewsItem) -> Unit
 ) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    private var newsList = listOf<NewsItem>()
+    private var newsList = mutableListOf<NewsItem>()
 
     inner class NewsViewHolder(private val binding: ItemRowNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,7 +41,8 @@ class NewsAdapter(
     }
 
     fun setData(newsList: List<NewsItem>) {
-        this.newsList = newsList
+        this.newsList.clear()
+        this.newsList.addAll(newsList)
         notifyDataSetChanged()
     }
 

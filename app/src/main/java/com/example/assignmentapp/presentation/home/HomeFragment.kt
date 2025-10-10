@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.assignmentapp.databinding.FragmentAllNewsBinding
 import com.example.assignmentapp.databinding.FragmentHomeBinding
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.presentation.core.BaseFragment
@@ -37,6 +37,7 @@ class HomeFragment : BaseFragment() {
         setLatestNewsRecycleView()
         setNewsFeedRecycleView()
         setUpObservers()
+        setUpListener()
         setupChips()
         setupPagination()
     }
@@ -62,6 +63,16 @@ class HomeFragment : BaseFragment() {
 
         this.collectLatestLifeCycleFlow(viewModel.newsFeed) {
             setDataFeedNewsAdapter(it)
+        }
+    }
+
+    private fun setUpListener() {
+        binding.searchBar.setOnClickListener {
+            navigateToAllNewsFragment(false)
+        }
+
+        binding.tvSeeAll.setOnClickListener {
+            navigateToAllNewsFragment(true)
         }
     }
 
@@ -117,6 +128,11 @@ class HomeFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun navigateToAllNewsFragment(isSeeAllSelected: Boolean) {
+        val action = HomeFragmentDirections.actionHomeFragmentToAllNewsFragment(isSeeAllSelected)
+        findNavController().navigate(action)
     }
 
 
