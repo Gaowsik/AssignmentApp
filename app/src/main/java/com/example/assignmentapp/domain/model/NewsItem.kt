@@ -9,7 +9,7 @@ data class NewsItem(
     val imageUrl: String?,
     val publishedAt: String?,
     val url: String,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = true
 ) {
 
 
