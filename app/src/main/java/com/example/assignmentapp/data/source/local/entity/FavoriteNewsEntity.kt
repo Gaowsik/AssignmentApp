@@ -21,7 +21,6 @@ data class FavoriteNewsEntity(
         description = description,
         imageUrl = imageUrl,
         publishedAt = publishedAt,
-        url = url,
-        isFavorite = isFavorite
+        url = url
     )
 }

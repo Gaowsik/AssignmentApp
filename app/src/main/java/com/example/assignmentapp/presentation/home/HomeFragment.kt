@@ -58,9 +58,9 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        this.collectLatestLifeCycleFlow(viewModel.latestNews) {
-            setDataLatestNewsAdapter(it)
-        }
+            this.collectLatestLifeCycleFlow(viewModel.latestNews) {
+                setDataLatestNewsAdapter(it)
+            }
 
         this.collectLatestLifeCycleFlow(viewModel.newsFeed) {
             setDataFeedNewsAdapter(it)

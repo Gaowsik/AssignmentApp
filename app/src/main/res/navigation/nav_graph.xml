@@ -37,4 +37,9 @@
             android:id="@+id/action_newsDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteNewsFragment"
+        android:name="com.example.assignmentapp.presentation.favouriteNews.FavoriteNewsFragment"
+        android:label="fragment_favorite_news"
+        tools:layout="@layout/fragment_favorite_news" />
 </navigation>
