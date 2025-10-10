@@ -18,6 +18,16 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
+        <ImageView
+            android:id="@+id/icFavourite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/padding_xsmall"
+            android:contentDescription="@string/favorite"
+            android:src="@drawable/ic_favourite"
+            app:tint="@android:color/white" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
