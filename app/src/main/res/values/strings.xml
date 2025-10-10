@@ -28,4 +28,8 @@
     <string name="action_technology">Technology</string>
     <string name="action_finance">Finance</string>
     <string name="action_art">Art</string>
+    <string name="news_image">News Image</string>
+    <string name="back">back</string>
+    <string name="favorite">resource_favourite</string>
+    <string name="title_unknown_author">Unknown Author</string>
 </resources>

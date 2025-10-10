@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_allNewsFragment"
             app:destination="@id/allNewsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/allNewsFragment"
@@ -22,5 +25,12 @@
         <argument
             android:name="isSeeAllSelected"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_allNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.example.assignmentapp.presentation.newsDetail.NewsDetailFragment"
+        android:label="NewsDetailFragment" />
 </navigation>
