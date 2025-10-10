@@ -127,7 +127,7 @@ class AllNewsFragment : BaseFragment() {
     }
 
     private fun navigateToNewsDetailFragment() {
-        val action = HomeFragmentDirections.actionHomeFragmentToNewsDetailFragment()
+        val action = AllNewsFragmentDirections.actionAllNewsFragmentToNewsDetailFragment()
         findNavController().navigate(action)
     }
 
