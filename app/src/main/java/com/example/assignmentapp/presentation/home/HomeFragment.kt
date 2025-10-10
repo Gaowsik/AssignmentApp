@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.assignmentapp.databinding.FragmentAllNewsBinding
 import com.example.assignmentapp.databinding.FragmentHomeBinding
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.presentation.core.BaseFragment
@@ -37,6 +38,7 @@ class HomeFragment : BaseFragment() {
         setNewsFeedRecycleView()
         setUpObservers()
         setupChips()
+        setupPagination()
     }
 
 
