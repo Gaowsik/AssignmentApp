@@ -7,11 +7,11 @@ interface UserRepository {
 
     suspend fun insertUser(user: User): Resource<Unit>
 
-    suspend fun getUserByEmail(email: String): Resource<User?>
-
     suspend fun login(email: String, password: String): Resource<User?>
 
-    suspend fun logout(email: String, password: String): Resource<Unit>
+    suspend fun logout(): Resource<Unit>
 
     suspend fun isLoggedIn(): Boolean
+
+    suspend fun getCurrentUser(): Resource<User?>
 }

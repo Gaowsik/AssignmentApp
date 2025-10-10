@@ -14,7 +14,6 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
     override suspend fun insertUser(user: User) = userDataSource.insertUser(user)
 
-    override suspend fun getUserByEmail(email: String) = userDataSource.getUserByEmail(email)
 
     override suspend fun login(email: String, password: String): Resource<User?> {
         val result = userDataSource.login(email, password)
@@ -35,9 +34,26 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun logout(email: String, password: String) = prefDataStore.clearDataStore()
+    override suspend fun logout() = prefDataStore.clearDataStore()
     override suspend fun isLoggedIn() =
         prefDataStore.getBooleanFromPref(AppConstants.PREF_IS_SINGED_IN, false)
+
+    override suspend fun getCurrentUser(): Resource<User?> {
+        val email = getCurrentUserEmail()
+
+        return when (val result = userDataSource.getUserByEmail(email)) {
+            is Resource.Error -> Resource.Error(result.exception)
+            Resource.Loading -> Resource.Loading
+            is Resource.Success<*> -> {
+                val user = result.value as? User
+                if (user == null) {
+                    Resource.Error(Exception("Invalid email or password"))
+                } else {
+                    Resource.Success(user)
+                }
+            }
+        }
+    }
 
 
     suspend fun updateIsLoggedInToPref(status: Boolean) {
@@ -47,6 +63,9 @@ class UserRepositoryImpl @Inject constructor(
     suspend fun updateLoggedUserEmail(email: String) {
         prefDataStore.addStringToPref(AppConstants.PREF_LOGGED_USER_EMAIL, email)
     }
+
+    suspend fun getCurrentUserEmail() =
+        prefDataStore.getStringFromPref(AppConstants.PREF_LOGGED_USER_EMAIL, "")
 
 
 }

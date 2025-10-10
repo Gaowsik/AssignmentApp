@@ -42,4 +42,8 @@
         android:name="com.example.assignmentapp.presentation.favouriteNews.FavoriteNewsFragment"
         android:label="fragment_favorite_news"
         tools:layout="@layout/fragment_favorite_news" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.assignmentapp.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>
