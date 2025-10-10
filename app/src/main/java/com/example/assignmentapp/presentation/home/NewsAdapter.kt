@@ -37,6 +37,17 @@ class NewsAdapter(
                 .into(binding.imageThumbnail)
 
             binding.textTitle.text = newsItem.title
+
+            val favColor = if (newsItem.isFavorite) {
+                android.R.color.holo_red_light
+            } else {
+                android.R.color.white
+            }
+
+            binding.icFavourite.setColorFilter(
+                binding.root.context.getColor(favColor),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
         }
     }
 
