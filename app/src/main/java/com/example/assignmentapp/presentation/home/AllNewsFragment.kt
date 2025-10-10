@@ -14,6 +14,7 @@ import com.example.assignmentapp.databinding.FragmentAllNewsBinding
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.presentation.core.BaseFragment
 import com.example.assignmentapp.presentation.extention.collectLatestLifeCycleFlow
+import com.example.assignmentapp.utils.AppConstants.DEFAULT_REQUEST_PAGE_SIZE
 import com.example.assignmentapp.utils.AppConstants.SEARCH_BAR_TIME_DELAY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -50,7 +51,7 @@ class AllNewsFragment : BaseFragment() {
     }
 
     private fun getAllNewsBasedOnNav() {
-        viewModel.fetchLatestNews(true, 10)
+        viewModel.fetchLatestNews(true, DEFAULT_REQUEST_PAGE_SIZE)
 
     }
 

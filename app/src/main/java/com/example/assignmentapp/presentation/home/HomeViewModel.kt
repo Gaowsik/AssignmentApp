@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.assignmentapp.data.APIResource
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.domain.repository.NewsRepository
+import com.example.assignmentapp.utils.AppConstants.DEFAULT_REQUEST_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-     val newsRepository: NewsRepository
+    val newsRepository: NewsRepository
 ) : ViewModel() {
 
     private val _latestNews = MutableStateFlow<List<NewsItem>>(emptyList())
@@ -34,7 +35,7 @@ class HomeViewModel @Inject constructor(
 
     private var currentPageFeed = 1
     private var currentPageLatest = 1
-    private val pageSize = 10
+    private val pageSize = DEFAULT_REQUEST_PAGE_SIZE
     private var selectedCategory: String? = null
     private val defaultCountry = "us"
 
@@ -109,7 +110,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadMoreFeed() = fetchNewsFeed()
-    fun loadMoreLatestNews() = fetchLatestNews(topHeadlinesSize = 10)
+    fun loadMoreLatestNews() = fetchLatestNews(topHeadlinesSize = DEFAULT_REQUEST_PAGE_SIZE)
 
     fun setCategory(category: String?) {
         selectedCategory = category
