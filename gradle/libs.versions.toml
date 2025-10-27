@@ -13,6 +13,7 @@ hilt = "2.52"
 coroutine = "1.7.3"
 kapt = "1.9.24"
 okhttp3 = "4.10.0"
+pagingRuntime = "3.3.6"
 retrofit = "2.9.0"
 lifecycle_version = "2.9.0"
 hiltCommon = "1.2.0"
@@ -22,8 +23,10 @@ room = "2.7.1"
 dataStore = "1.1.1"
 recyclerview = "1.4.0"
 
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

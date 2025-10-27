@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentapp.databinding.FragmentAllNewsBinding
@@ -48,7 +49,6 @@ class AllNewsFragment : BaseFragment() {
         getAllNewsBasedOnNav()
         setAllNewsRecycleView()
         setUpObservers()
-        setupPagination()
     }
 
     private fun getAllNewsBasedOnNav() {
@@ -71,10 +71,10 @@ class AllNewsFragment : BaseFragment() {
         }
 
         this.collectLatestLifeCycleFlow(viewModel.latestNews) {
-            setDataAllNewsAdapter(it)
+           // setDataAllNewsAdapter(it)
         }
 
-        this.collectLatestLifeCycleFlow(viewModel.newsFeed) {
+        this.collectLatestLifeCycleFlow(viewModel.newsFeedPagination) {
             setDataAllNewsAdapter(it)
         }
 
@@ -96,34 +96,17 @@ class AllNewsFragment : BaseFragment() {
     private fun setAllNewsRecycleView() {
         binding.rvAllNews.layoutManager =
             LinearLayoutManager(context)
-        val allNewsRecycleAdapter = NewsAdapter { news ->
+        val allNewsRecycleAdapter = NewsPagingAdapter { news ->
             viewModel.selectNewsItem(news)
             navigateToNewsDetailFragment()
         }
         binding.rvAllNews.adapter = allNewsRecycleAdapter
     }
 
-    private fun setDataAllNewsAdapter(newsList: List<NewsItem>) {
+    private fun setDataAllNewsAdapter(pagingData: PagingData<NewsItem>) {
         binding.rvAllNews.adapter?.let {
-            (it as NewsAdapter).setData(newsList)
+            (it as NewsPagingAdapter).submitData(lifecycle, pagingData)
         }
-    }
-
-    private fun setupPagination() {
-        binding.rvAllNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val visibleCount = layoutManager.childCount
-                    val totalCount = layoutManager.itemCount
-                    val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                    if (!viewModel.isLoading.value && (visibleCount + firstVisibleItem) >= totalCount - 2) {
-                        viewModel.loadMoreLatestNews()
-                    }
-                }
-            }
-        })
     }
 
     private fun navigateToNewsDetailFragment() {

@@ -2,7 +2,11 @@ package com.example.assignmentapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.assignmentapp.data.APIResource
+import com.example.assignmentapp.data.NewsPagingSource
 import com.example.assignmentapp.data.Resource
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.domain.repository.NewsRepository
@@ -49,6 +53,16 @@ class HomeViewModel @Inject constructor(
     private var selectedCategory: String? = null
     private val defaultCountry = "us"
 
+    val newsFeedPagination = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = {
+            NewsPagingSource(newsRepository, selectedCategory, defaultCountry)
+        }
+    ).flow.cachedIn(viewModelScope)
+        get() = field
 
 
     fun fetchLatestNews(refresh: Boolean = false,topHeadlinesSize: Int = 5) {
