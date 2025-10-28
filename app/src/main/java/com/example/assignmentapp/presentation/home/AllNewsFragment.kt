@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentapp.databinding.FragmentAllNewsBinding
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.presentation.core.BaseFragment
@@ -70,9 +69,6 @@ class AllNewsFragment : BaseFragment() {
             }
         }
 
-        this.collectLatestLifeCycleFlow(viewModel.latestNews) {
-           // setDataAllNewsAdapter(it)
-        }
 
         this.collectLatestLifeCycleFlow(viewModel.newsFeedPagination) {
             setDataAllNewsAdapter(it)
@@ -85,7 +81,7 @@ class AllNewsFragment : BaseFragment() {
                 if (query.isNotEmpty()) {
                     viewModel.searchNews(query)
                 } else {
-                    viewModel.fetchNewsFeed(refresh = true)
+                    viewModel.showTopHeadlines()
                 }
             }
         }

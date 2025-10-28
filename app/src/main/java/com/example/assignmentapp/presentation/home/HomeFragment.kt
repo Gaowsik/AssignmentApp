@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentapp.databinding.FragmentHomeBinding
 import com.example.assignmentapp.domain.model.NewsItem
 import com.example.assignmentapp.presentation.core.BaseFragment
@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment() {
         setUpObservers()
         setUpListener()
         setupChips()
-        setupPagination()
         fetchData()
     }
 
@@ -58,13 +57,15 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-            this.collectLatestLifeCycleFlow(viewModel.latestNews) {
-                setDataLatestNewsAdapter(it)
-            }
-
-        this.collectLatestLifeCycleFlow(viewModel.newsFeed) {
-            setDataFeedNewsAdapter(it)
+        this.collectLatestLifeCycleFlow(viewModel.latestNews) {
+            setDataLatestNewsAdapter(it)
         }
+
+        this.collectLatestLifeCycleFlow(viewModel.newsFeedPagination) {
+            setDataAllNewsAdapter(it)
+        }
+
+
     }
 
     private fun setUpListener() {
@@ -81,7 +82,7 @@ class HomeFragment : BaseFragment() {
         binding.chipGroupFilters.setOnCheckedStateChangeListener { group, checkedIds ->
             val chip = checkedIds.firstOrNull()?.let { group.findViewById<Chip>(it) }
             val category = chip?.text?.toString()?.lowercase()
-            viewModel.setCategory(category)
+            viewModel.updateCategory(category)
         }
     }
 
@@ -97,7 +98,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setNewsFeedRecycleView() {
         binding.rvNewsFeed.layoutManager = LinearLayoutManager(context)
-        val feedNewsRecycleAdapter = NewsAdapter { news ->
+        val feedNewsRecycleAdapter = NewsPagingAdapter { news ->
             viewModel.selectNewsItem(news)
             navigateToNewsDetailFragment()
         }
@@ -110,28 +111,13 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun setDataFeedNewsAdapter(newsList: List<NewsItem>) {
+
+    private fun setDataAllNewsAdapter(pagingData: PagingData<NewsItem>) {
         binding.rvNewsFeed.adapter?.let {
-            (it as NewsAdapter).setData(newsList)
+            (it as NewsPagingAdapter).submitData(lifecycle, pagingData)
         }
     }
 
-    private fun setupPagination() {
-        binding.rvNewsFeed.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val visibleCount = layoutManager.childCount
-                    val totalCount = layoutManager.itemCount
-                    val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                    if ((visibleCount + firstVisibleItem) >= totalCount - 2) {
-                        viewModel.loadMoreFeed()
-                    }
-                }
-            }
-        })
-    }
 
     private fun navigateToAllNewsFragment(isSeeAllSelected: Boolean) {
         val action = HomeFragmentDirections.actionHomeFragmentToAllNewsFragment(isSeeAllSelected)
@@ -143,9 +129,8 @@ class HomeFragment : BaseFragment() {
         findNavController().navigate(action)
     }
 
-    private fun fetchData(){
+    private fun fetchData() {
         viewModel.fetchLatestNews(true)
-        viewModel.fetchNewsFeed(true)
     }
 
 
